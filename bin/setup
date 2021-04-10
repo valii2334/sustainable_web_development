@@ -1,0 +1,62 @@
+#!/usr/bin/env ruby
+
+def system!(*args)
+  log "Executing #{args}"
+  if system(*args)
+    log "#{args} suceeded"
+  else
+    log "#{args} failed"
+    abort
+  end
+end
+
+def log(message)
+  puts "[ bin/setup ] #{message}"
+end
+
+def setup
+  log 'Installing gems'
+  # Only do bundle install if the much-faster
+  # bundle check indicates we need to
+  system! 'bundle check || bundle install'
+
+  log 'Installing node modules'
+  # only do yarn install if the much-faster
+  # yarn check indicates we need to. Note that
+  # --check-files is needed to force Yarn to actually
+  # examine what's in node_modules
+  system! 'bin/yarn check --check-files || bin/yarn install'
+
+  log 'Dropping & recreating the development database'
+  # Note that the very first time this runs, db:reset
+  # will fail, but this failure is fixed by doing
+  # a db:migrate
+  system! 'bin/rails db:reset || bin/rails db:migrate'
+
+  log 'Dropping & recreating the test database'
+  # Setting the RAILS_ENV explicitly to be sure
+  # we actually reset the test database
+  system!({ 'RAILS_ENV' => 'test' }, 'bin/rails db:reset')
+
+  log 'All set up'
+end
+
+def help
+  log 'Useful commands.'
+  log ''
+  log 'bin/run - run app locally'
+  log ''
+  log 'bin/ci - run all tests and checks as CI would'
+  log ''
+  log 'bin/rails test - run non-system tests'
+  log ''
+  log 'bin/rails test:system - run system tests'
+  log ''
+  log 'bin/setup help - show this help'
+end
+
+if ARGV[0] == 'help'
+  help
+else
+  setup
+end
