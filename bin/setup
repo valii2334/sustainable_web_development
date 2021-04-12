@@ -45,6 +45,8 @@ def help
   log 'Useful commands.'
   log ''
   log 'bin/run - run app locally'
+  log 'LOGRAGE_IN_DEVELOPMENT=true bin/run'
+  log 'run app locally production-like logging'
   log ''
   log 'bin/ci - run all tests and checks as CI would'
   log ''

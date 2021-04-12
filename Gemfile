@@ -29,6 +29,10 @@ gem 'brakeman'
 # dependencies for known vulnerabilities
 gem 'bundler-audit'
 
+# lograge changes Rails logging to a more
+# traditional one-line-per-event format
+gem 'lograge'
+
 group :development, :test do
   gem 'pry'
 
