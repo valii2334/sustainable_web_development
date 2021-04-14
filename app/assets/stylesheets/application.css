@@ -13,3 +13,9 @@
  *= require_tree .
  *= require_self
  */
+
+.clear-floats:after {
+  content: "";
+  display: table;
+  clear: both;
+}

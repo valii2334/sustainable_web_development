@@ -5,14 +5,9 @@
     <%= flash[:notice] %>
   </aside>
 <% end %>
-<section>
-  <h3>Rate This Widget</h3>
+<h3>
+  Built by <%= @widget.manufacturer.name %>
+  out of <%= @widget.manufacturer.address.country %>
+</h3>
 
-  <ol>
-    <% (1..5).each do |rating| %>
-      <li>
-        <%= button_to rating, widget_ratings_path, params: { widget_id: @widget.id, rating: rating } %>
-      </li>
-    <% end %>
-  </ol>
-</section>
+<%= render partial: 'rating', locals: { widget: @widget, suppress_cta: false } %>
