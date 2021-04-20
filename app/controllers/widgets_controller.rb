@@ -9,11 +9,17 @@ class WidgetsController < ApplicationController
       )
     )
 
+    widget_name = if params[:id].to_i == 1234
+                    'Stembolt'
+                  else
+                    "Widget #{params[:id]}"
+                  end
+
     @widget = OpenStruct.new(
       id: params[:id],
       manufacturer_id: manufacturer.id,
       manufacturer: manufacturer,
-      name: "Widget #{params[:id]}"
+      name: widget_name
     )
 
     def @widget.widget_id
@@ -27,7 +33,7 @@ class WidgetsController < ApplicationController
 
   def index
     @widgets = [
-      OpenStruct.new(id: 1, name: 'Stembolt'),
+      OpenStruct.new(id: 1234, name: 'Stembolt'),
       OpenStruct.new(id: 2, name: 'Flux Capacitor')
     ]
   end
