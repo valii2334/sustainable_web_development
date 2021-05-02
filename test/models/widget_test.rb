@@ -1,7 +1,34 @@
 require 'test_helper'
 
 class WidgetTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  setup do
+    widget_status = WidgetStatus.create!(name: 'fresh')
+    manufacturer = Manufacturer.create!(
+      name: 'Cyberdine systems',
+      address: Address.create!(
+        street: '742 Evergreen Terrace',
+        zip: '90210'
+      )
+    )
+    @widget = Widget.create!(
+      name: 'Stembolt',
+      manufacturer: manufacturer,
+      widget_status: widget_status,
+      price_cents: 10_00
+    )
+  end
+
+  test 'valid prices do not trigger db constraints' do
+    assert_nothing_raised do
+      @widget.update_column(:price_cents, 45_00)
+    end
+  end
+
+  test 'negative prices do trigger db constraints' do
+    ex = assert_raises do
+      @widget.update_column(:price_cents, -45_00)
+    end
+
+    assert_match(/price_must_be_positive/i, ex.message)
+  end
 end

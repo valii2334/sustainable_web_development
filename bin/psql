@@ -1,0 +1,7 @@
+# bin/psql
+#!/bin/sh
+
+set -e
+
+echo "[ bin/psql ] Connecting to widgets_development"
+psql -p 5432 widgets_development
