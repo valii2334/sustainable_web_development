@@ -4,6 +4,12 @@ class Widget < ApplicationRecord
 
   validates :price_cents, numericality: { less_than_or_equal_to: 10_000_00 }
 
+  before_validation do
+    if self.name.blank?
+      self.name = nil
+    end
+  end
+
   def user_facing_identifier
     id_as_string = self.id.to_s
 

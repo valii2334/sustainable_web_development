@@ -2,20 +2,7 @@ require 'test_helper'
 
 class WidgetTest < ActiveSupport::TestCase
   setup do
-    widget_status = WidgetStatus.create!(name: 'fresh')
-    manufacturer = Manufacturer.create!(
-      name: 'Cyberdine systems',
-      address: Address.create!(
-        street: '742 Evergreen Terrace',
-        zip: '90210'
-      )
-    )
-    @widget = Widget.create!(
-      name: 'Stembolt',
-      manufacturer: manufacturer,
-      widget_status: widget_status,
-      price_cents: 10_00
-    )
+    @widget = FactoryBot.create(:widget)
   end
 
   test 'valid prices do not trigger db constraints' do
@@ -30,5 +17,19 @@ class WidgetTest < ActiveSupport::TestCase
     end
 
     assert_match(/price_must_be_positive/i, ex.message)
+  end
+
+  test 'when the name an empty string, it is normalized to nil' do
+    widget = Widget.new(name: '')
+    widget.validate
+
+    assert_nil widget.name
+  end
+
+  test 'when name is just a lot of spaces, it is normalized to nil' do
+    widget = Widget.new(name: '                ')
+    widget.validate
+
+    assert_nil widget.name
   end
 end

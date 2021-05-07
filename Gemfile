@@ -40,6 +40,14 @@ group :development, :test do
   # but we use dotenv to store that in files for
   # development and testing
   gem 'dotenv-rails'
+
+  # We use Factory Bot in place of fixtures
+  # to generate realistic test data
+  gem 'factory_bot_rails'
+
+  # We use Faker to generate values for attributes
+  # in each factory
+  gem 'faker'
 end
 
 group :development do
