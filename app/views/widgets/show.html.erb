@@ -1,6 +1,8 @@
 <h1>Widget Information</h1>
 <h2 data-testid='widget-name'><%= @widget.name %></h2>
-<h2>ID #<%= styled_widget_id(@widget.widget_id)%></h2>
+<h2>
+  ID #<%= styled_widget_id(@widget.user_facing_identifier)%>
+</h2>
 <% if flash[:notice].present? %>
   <aside>
     <%= flash[:notice] %>
@@ -8,7 +10,7 @@
 <% end %>
 <h3>
   Built by <%= @widget.manufacturer.name %>
-  out of <%= @widget.manufacturer.address.country %>
+  out of <%= @widget.manufacturer.address %>
 </h3>
 
 <%= widget_rating_component(@widget) %>

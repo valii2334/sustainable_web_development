@@ -5,7 +5,7 @@
       The data you provided is not valid
     </aside>
   <% end %>
-  <%= form_with model: @widget do |f| %>
+  <%= form_with model: @widget, local: true do |f| %>
     <div class='mb3'>
       <%= render partial: 'widgets/label_with_error', locals: { form: f, record: @widget, field_name: :name } %>
       <%= f.text_field :name, autofocus: true, placeholder: 'e.g. Stembolt', class: 'db w-100 pa2 mb1' %>
