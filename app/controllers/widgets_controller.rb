@@ -33,10 +33,7 @@ class WidgetsController < ApplicationController
   end
 
   def index
-    @widgets = [
-      OpenStruct.new(id: 1234, name: 'Stembolt'),
-      OpenStruct.new(id: 2, name: 'Flux Capacitor')
-    ]
+    @widgets = Widget.all
   end
 
   def edit

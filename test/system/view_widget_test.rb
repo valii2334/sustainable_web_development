@@ -2,6 +2,10 @@ require 'application_system_test_case'
 
 class ViewWidgetTest < ApplicationSystemTestCase
   test 'we can view a list of widgets and choose one to view' do
+    FactoryBot.create(:widget, name: 'Flux capacitor')
+    stembolt = FactoryBot.create(:widget, name: 'Stembolt')
+    stembolt.update!(id: 1234)
+    
     visit widgets_path
 
     widget_name = 'stembolt'
