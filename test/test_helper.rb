@@ -2,6 +2,9 @@ ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 require 'rails/test_help'
 
+# Set up Sidekiq testing modes.
+require 'sidekiq/testing'
+
 require 'support/confidence_check'
 
 class ActiveSupport::TestCase
